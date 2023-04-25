@@ -4,8 +4,8 @@ import { AppComponent } from './app.component';
 import { GeneralComponent } from './conteo-votos/pages/general/general.component';
 
 const routes: Routes = [
-    { path: '', component: AppComponent },
-    { path: 'General', component: GeneralComponent },
+    { path: '', component: GeneralComponent },
+    { path: 'general', component: GeneralComponent },
   ];
 
   @NgModule({
