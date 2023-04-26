@@ -1,0 +1,19 @@
+<div class="min-h-full">
+  <app-menu></app-menu>
+  <header class="bg-white shadow">
+    <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+      <h1 class="text-3xl font-bold tracking-tight text-gray-900">
+        Registrar Voto
+      </h1>
+    </div>
+  </header>
+  <main>
+    <div
+      class="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8 grid grid-cols-4 gap-4 md:grid-cols-4"
+    >
+      <div *ngFor="let mesa of mesas">
+        <app-card-mesa [mesa]="mesa"></app-card-mesa>
+      </div>
+    </div>
+  </main>
+</div>
