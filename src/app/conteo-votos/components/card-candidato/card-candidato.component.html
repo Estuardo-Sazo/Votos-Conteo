@@ -1,25 +1,30 @@
-<div class="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow">
-    <div class="flex justify-end px-4 pt-4">
+<div
+  class="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow"
+  (click)="setUuid(candidato.id)"
+>
+  <div class="flex justify-end px-4 pt-4"></div>
+  <div class="flex flex-col items-center pb-2">
+    <img
+      *ngIf="candidato.img_candidato"
+      class="w-20 h-20 xs:w-16 xs:h-16 mb-3 rounded-full shadow-lg"
+      src="assets/imgs/candidatos/{{ candidato.img_candidato }}"
+      alt="{{ candidato.nombre_candidato }}"
+    />
+    <div
+      *ngIf="!candidato.img_candidato"
+      class="relative inline-flex items-center justify-center w-20 h-20 xs:w-16 xs:h-16 mb-3 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600"
+    >
+      <span class="font-medium text-gray-600 dark:text-gray-300">CD</span>
+    </div>
+    <h5 class="mb-1 xl:text-xl sm:text-sm xs:text-xs font-medium text-gray-900">
+      {{ candidato.nombre_candidato }}
+    </h5>
+    <span class="textmd text-gray-500">{{ candidato.nombre_partido }} </span>
+    <h5 class="mb-1 xl:text-xl sm:text-sm  font-medium text-gray-900">
+     Votos: {{ candidato.num_voto }}
+    </h5>
+    <div class="flex mt-4 space-x-3 md:mt-1">
      
     </div>
-    <div class="flex flex-col items-center pb-10">
-      <img
-              class="w-24 h-24 mb-3 rounded-full shadow-lg "
-              src="assets/imgs/candidatos/{{candidato.img_candidato}}"
-              alt="{{ candidato.nombre_candidato }}"
-            />
-      <h5 class="mb-1 text-xl font-medium text-gray-900">
-        {{ candidato.nombre_candidato }}
-      </h5>
-      <span class="textmd text-gray-500">{{ candidato.nombre_partido }} </span>
-      <div class="flex mt-4 space-x-3 md:mt-6">
-        <!-- <button
-          (click)="getMesa(mesa.id)"
-          class="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300"
-        >
-          Registrar Votos
-        </button> -->
-      </div>
-    </div>
   </div>
-  
+</div>

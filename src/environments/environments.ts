@@ -1,5 +1,5 @@
 export const environment = {
     production: false,
     mockapi: true,
-    urlapi: 'http://localhost:3000/'
+    urlapi: 'http://192.168.0.64:3000/'
   };

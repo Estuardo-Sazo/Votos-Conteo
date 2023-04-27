@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input,  Output, EventEmitter } from '@angular/core';
 import { Candidato } from '../../interfaces/candidato.interface';
 
 @Component({
@@ -7,5 +7,11 @@ import { Candidato } from '../../interfaces/candidato.interface';
   styleUrls: ['./card-candidato.component.scss'],
 })
 export class CardCandidatoComponent {
-  @Input() candidato: Candidato = {};
+  @Input() candidato: Candidato = {
+  };
+  @Output() uuid = new EventEmitter<string>();
+
+  setUuid(value: any) {
+    this.uuid.emit(value);
+  }
 }

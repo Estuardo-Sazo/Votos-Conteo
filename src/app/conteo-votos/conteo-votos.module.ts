@@ -7,9 +7,17 @@ import { AppRoutingModule } from '../app-routing.module';
 import { CardMesaComponent } from './components/card-mesa/card-mesa.component';
 import { VotoCandidatoComponent } from './pages/voto-candidato/voto-candidato.component';
 import { CardCandidatoComponent } from './components/card-candidato/card-candidato.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
-  declarations: [GeneralComponent, MenuComponent, RegistrarVotoComponent, CardMesaComponent, VotoCandidatoComponent, CardCandidatoComponent],
-  imports: [CommonModule, AppRoutingModule],
+  declarations: [
+    GeneralComponent,
+    MenuComponent,
+    RegistrarVotoComponent,
+    CardMesaComponent,
+    VotoCandidatoComponent,
+    CardCandidatoComponent,
+  ],
+  imports: [CommonModule, AppRoutingModule, FormsModule, ReactiveFormsModule],
 })
 export class ConteoVotosModule {}

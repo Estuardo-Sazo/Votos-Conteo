@@ -5,6 +5,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { ConteoVotosModule } from './conteo-votos/conteo-votos.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [AppComponent],
@@ -13,6 +14,8 @@ import { ConteoVotosModule } from './conteo-votos/conteo-votos.module';
     AppRoutingModule,
     HttpClientModule,
     ConteoVotosModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent],
