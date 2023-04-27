@@ -8,6 +8,7 @@ import { CardMesaComponent } from './components/card-mesa/card-mesa.component';
 import { VotoCandidatoComponent } from './pages/voto-candidato/voto-candidato.component';
 import { CardCandidatoComponent } from './components/card-candidato/card-candidato.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SpinnerModule } from '../shared/components/spinner/spinner.module';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     VotoCandidatoComponent,
     CardCandidatoComponent,
   ],
-  imports: [CommonModule, AppRoutingModule, FormsModule, ReactiveFormsModule],
+  imports: [
+    CommonModule,
+    AppRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
+    SpinnerModule,
+  ],
 })
 export class ConteoVotosModule {}
