@@ -54,7 +54,7 @@ export class ChartResultComponent {
       /* Votos */
       series: [
         {
-          name: 'distibuted',
+          name: 'Votos',
           data: this.chart_votos,
         },
       ],

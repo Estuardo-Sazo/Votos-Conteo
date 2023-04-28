@@ -23,6 +23,7 @@ export class VotoCandidatoComponent implements OnInit {
   uuidSelect = '';
   nameSelect = '';
   uudiMesa = '';
+  setVoto = false;
   ingresoVoto = new FormGroup({
     numeroVotos: new FormControl('', [
       Validators.required,
@@ -96,18 +97,21 @@ export class VotoCandidatoComponent implements OnInit {
       }
     });
 
-    await this.candidatos.forEach(async (c) => {
-      this.set_voto.numero_votos = c.num_voto;
-      this.set_voto.candidatoId = c.id;
-      this.set_voto.mesaId = this.uudiMesa;
-      promises.push(this.sendData(this.set_voto));
-    });
+    if (this.setVoto) {
+      await this.candidatos.forEach(async (c) => {
+        this.set_voto.numero_votos = c.num_voto;
+        this.set_voto.candidatoId = c.id;
+        this.set_voto.mesaId = this.uudiMesa;
+        promises.push(this.sendData(this.set_voto));
+      });
+    }
 
     await Promise.all(promises);
-
-    this.routerPath.navigate(['/registro-voto']).then(() => {
-      window.location.reload();
-    });
+    if (this.setVoto) {
+      this.routerPath.navigate(['/registro-voto']).then(() => {
+        window.location.reload();
+      });
+    }
   }
 
   async sendData(data: SetVoto) {
