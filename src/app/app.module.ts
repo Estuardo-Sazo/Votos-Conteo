@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, isDevMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
@@ -8,6 +8,7 @@ import { ConteoVotosModule } from './conteo-votos/conteo-votos.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SpinnerModule } from './shared/components/spinner/spinner.module';
 import { SpinnerInterceptor } from './shared/interceptor/spinner.interceptor';
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 @NgModule({
   declarations: [AppComponent],
@@ -19,6 +20,10 @@ import { SpinnerInterceptor } from './shared/interceptor/spinner.interceptor';
     FormsModule,
     ReactiveFormsModule,
     SpinnerModule,
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: !isDevMode(),
+      registrationStrategy: 'registerWhenStable:30000'
+    }),
   ],
   providers: [
     {

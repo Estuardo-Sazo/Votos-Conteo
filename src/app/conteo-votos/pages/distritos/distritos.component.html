@@ -1,0 +1,46 @@
+<div class="min-h-full">
+  <app-menu></app-menu>
+  <header class="bg-white shadow mt-16">
+    <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+      <h1 class="text-3xl font-bold tracking-tight text-gray-900">
+        Centros de votación
+      </h1>
+    </div>
+  </header>
+  <main>
+    <div class="mx-auto max-w-7xl py-6 xs:p-2 sm:px-6 lg:px-8 grid gap-4 xs:gap-6 md:grid-cols-3 lg:grid-cols-4 grid-cols-2">
+      <!-- TEST -->
+
+      <div *ngFor="let dis of distritos">
+        <app-card-distrito [distrito]="dis"></app-card-distrito>
+      </div>
+
+      <!-- TEST -->
+
+      <!--  <div class="bg-gray-100 px-4 py-2">
+            <h1 class="text-xl font-bold">Resultados</h1>
+          </div>
+          <div class="px-4 py-2">
+            <table class="table-auto w-full">
+              <thead>
+                <tr>
+                  <th class="px-4 py-2 text-left">Candidato</th>
+                  <th class="px-4 py-2 text-left">Partido</th>
+                  <th class="px-4 py-2 text-left">Total de votos</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr
+                  *ngFor="let resultado of votos"
+                  class="border-b border-gray-200"
+                >
+                  <td class="px-4 py-2">{{ resultado.nombre_candidato }}</td>
+                  <td class="px-4 py-2">{{ resultado.nombre_partido }}</td>
+                  <td class="px-4 py-2">{{ resultado.total_votos }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div> -->
+    </div>
+  </main>
+</div>

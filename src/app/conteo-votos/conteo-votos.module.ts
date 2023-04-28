@@ -9,6 +9,9 @@ import { VotoCandidatoComponent } from './pages/voto-candidato/voto-candidato.co
 import { CardCandidatoComponent } from './components/card-candidato/card-candidato.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SpinnerModule } from '../shared/components/spinner/spinner.module';
+import { CardDistritoComponent } from './components/card-distrito/card-distrito.component';
+import { DistritosComponent } from './pages/distritos/distritos.component';
+import { DistritoResultadosComponent } from './pages/distrito-resultados/distrito-resultados.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +21,9 @@ import { SpinnerModule } from '../shared/components/spinner/spinner.module';
     CardMesaComponent,
     VotoCandidatoComponent,
     CardCandidatoComponent,
+    CardDistritoComponent,
+    DistritosComponent,
+    DistritoResultadosComponent,
   ],
   imports: [
     CommonModule,

@@ -2,7 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Candidato } from '../../interfaces/candidato.interface';
 import { CandidatosService } from '../../services/candidatos.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { VotosService } from '../../services/votos.service';
+import { SetVoto } from '../../interfaces/setVotos.interface';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-voto-candidato',
@@ -12,10 +15,14 @@ import { ActivatedRoute } from '@angular/router';
 export class VotoCandidatoComponent implements OnInit {
   candidatos: Candidato[] = [];
   upCan: Candidato[] = [];
+
+  set_voto: SetVoto = {};
   showModal = false;
+  showAlert = false;
   numeroVotos = 0;
   uuidSelect = '';
-  uudiMesa;
+  nameSelect = '';
+  uudiMesa = '';
   ingresoVoto = new FormGroup({
     numeroVotos: new FormControl('', [
       Validators.required,
@@ -24,9 +31,11 @@ export class VotoCandidatoComponent implements OnInit {
   });
   constructor(
     private candidatoService: CandidatosService,
-    private router: ActivatedRoute
+    private router: ActivatedRoute,
+    private votosSvc: VotosService,
+    private routerPath: Router
   ) {
-    this.uudiMesa = this.router.snapshot.paramMap.get('mesa');
+    this.uudiMesa = this.router.snapshot.paramMap.get('mesa')!;
   }
 
   async ngOnInit() {
@@ -44,8 +53,20 @@ export class VotoCandidatoComponent implements OnInit {
     console.log(uuid);
   }
 
+  getName(name: any) {
+    this.nameSelect = name;
+  }
+
   closeModal() {
     this.showModal = !this.showModal;
+  }
+
+  closeModalAlert() {
+    this.showAlert = !this.showAlert;
+  }
+
+  openModalAlert() {
+    this.showAlert = !this.showAlert;
   }
 
   submit() {
@@ -61,5 +82,37 @@ export class VotoCandidatoComponent implements OnInit {
       this.ingresoVoto.reset();
       this.closeModal();
     } else console.log('Hay datos inválidos en el formulario ');
+  }
+
+  async confirData() {
+    console.log('call SET');
+
+    const promises: any = [];
+
+    await this.candidatos.forEach(async (c) => {
+      if (c.num_voto === 0) {
+        this.showAlert = true;
+        return;
+      }
+    });
+
+    await this.candidatos.forEach(async (c) => {
+      this.set_voto.numero_votos = c.num_voto;
+      this.set_voto.candidatoId = c.id;
+      this.set_voto.mesaId = this.uudiMesa;
+      promises.push(this.sendData(this.set_voto));
+    });
+
+    await Promise.all(promises);
+
+    this.routerPath.navigate(['/registro-voto']).then(() => {
+      window.location.reload();
+    });
+  }
+
+  async sendData(data: SetVoto) {
+    this.votosSvc.setVotos(data).subscribe((data) => {
+      console.log(data);
+    });
   }
 }

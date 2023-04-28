@@ -1,6 +1,6 @@
 <div
   class="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow"
-  (click)="setUuid(candidato.id)"
+  (click)="setUuid(candidato.id, candidato.nombre_candidato)"
 >
   <div class="flex justify-end px-4 pt-4"></div>
   <div class="flex flex-col items-center pb-2">
@@ -20,11 +20,9 @@
       {{ candidato.nombre_candidato }}
     </h5>
     <span class="textmd text-gray-500">{{ candidato.nombre_partido }} </span>
-    <h5 class="mb-1 xl:text-xl sm:text-sm  font-medium text-gray-900">
-     Votos: {{ candidato.num_voto }}
+    <h5 class="mb-1 xl:text-xl sm:text-sm font-medium text-gray-900">
+      Votos: {{ candidato.num_voto }}
     </h5>
-    <div class="flex mt-4 space-x-3 md:mt-1">
-     
-    </div>
+    <div class="flex mt-4 space-x-3 md:mt-1"></div>
   </div>
 </div>
