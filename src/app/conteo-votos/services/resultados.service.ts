@@ -15,4 +15,8 @@ export class ResultadosService {
   getResults(): Observable<Voto[]> {
     return this.http.get<Voto[]>(this.api+'results');
   }
+
+  getResultsDistri(uudi:string): Observable<Voto[]> {
+    return this.http.get<Voto[]>(this.api+'results/'+uudi+'/distrito');
+  }
 }

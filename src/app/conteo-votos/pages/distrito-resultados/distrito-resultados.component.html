@@ -1,1 +1,65 @@
-<p>distrito-resultados works!</p>
+<div class="min-h-full">
+  <app-menu></app-menu>
+  <header class="bg-white shadow mt-16">
+    <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+      <h1 class="text-3xl font-bold tracking-tight text-gray-900">
+        Resultados: {{ nameDistri }}
+      </h1>
+    </div>
+  </header>
+  <main>
+    <div class="mx-auto max-w-7xl py-6 xs:p-2 sm:px-6 lg:px-8">
+      <!-- Chart -->
+
+      <app-chart-result
+        [chart_candidatos]="chart_candidatos"
+        [chart_color]="chart_color"
+        [chart_votos]="chart_votos"
+        [chart_partidos]="chart_partidos"
+      ></app-chart-result>
+
+      <!-- TEST -->
+      <div
+        class="w-full max-w-md p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700 m-auto"
+      >
+        <div class="flex items-center justify-between mb-4">
+          <h5
+            class="text-xl font-bold leading-none text-gray-900 dark:text-white"
+          >
+            Candidatos
+          </h5>
+        </div>
+        <div class="flow-root">
+          <ul role="list" class="divide-y divide-gray-200 dark:divide-gray-700">
+            <li class="py-3 sm:py-4" *ngFor="let resultado of votos">
+              <div class="flex items-center space-x-4">
+                <div class="flex-shrink-0">
+                  <img
+                    class="w-8 h-8 rounded-full"
+                    src="https://png.pngtree.com/png-vector/20220709/ourmid/pngtree-businessman-user-avatar-wearing-suit-with-red-tie-png-image_5809521.png"
+                    alt="Neil image"
+                  />
+                </div>
+                <div class="flex-1 min-w-0">
+                  <p
+                    class="text-sm font-medium text-gray-900 truncate dark:text-white"
+                  >
+                    {{ resultado.nombre_candidato }}
+                  </p>
+                  <p class="text-sm text-gray-500 truncate dark:text-gray-400">
+                    {{ resultado.nombre_partido }}
+                  </p>
+                </div>
+                <div
+                  class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white"
+                >
+                  {{ resultado.total_votos }}
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>

@@ -9,6 +9,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SpinnerModule } from './shared/components/spinner/spinner.module';
 import { SpinnerInterceptor } from './shared/interceptor/spinner.interceptor';
 import { ServiceWorkerModule } from '@angular/service-worker';
+import { NgApexchartsModule } from 'ng-apexcharts';
 
 @NgModule({
   declarations: [AppComponent],
@@ -20,6 +21,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
     FormsModule,
     ReactiveFormsModule,
     SpinnerModule,
+    NgApexchartsModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: !isDevMode(),
       registrationStrategy: 'registerWhenStable:30000'

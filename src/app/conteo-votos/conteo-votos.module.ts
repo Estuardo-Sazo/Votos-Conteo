@@ -12,6 +12,8 @@ import { SpinnerModule } from '../shared/components/spinner/spinner.module';
 import { CardDistritoComponent } from './components/card-distrito/card-distrito.component';
 import { DistritosComponent } from './pages/distritos/distritos.component';
 import { DistritoResultadosComponent } from './pages/distrito-resultados/distrito-resultados.component';
+import { ChartResultComponent } from './components/chart-result/chart-result.component';
+import { NgApexchartsModule } from 'ng-apexcharts';
 
 @NgModule({
   declarations: [
@@ -24,6 +26,7 @@ import { DistritoResultadosComponent } from './pages/distrito-resultados/distrit
     CardDistritoComponent,
     DistritosComponent,
     DistritoResultadosComponent,
+    ChartResultComponent,
   ],
   imports: [
     CommonModule,
@@ -31,6 +34,7 @@ import { DistritoResultadosComponent } from './pages/distrito-resultados/distrit
     FormsModule,
     ReactiveFormsModule,
     SpinnerModule,
+    NgApexchartsModule
   ],
 })
 export class ConteoVotosModule {}
