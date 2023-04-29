@@ -23,7 +23,7 @@ export class VotoCandidatoComponent implements OnInit {
   uuidSelect = '';
   nameSelect = '';
   uudiMesa = '';
-  setVoto = false;
+  setVoto = true;
   ingresoVoto = new FormGroup({
     numeroVotos: new FormControl('', [
       Validators.required,
@@ -93,6 +93,7 @@ export class VotoCandidatoComponent implements OnInit {
     await this.candidatos.forEach(async (c) => {
       if (c.num_voto === 0) {
         this.showAlert = true;
+        this.setVoto = false;
         return;
       }
     });
@@ -112,6 +113,8 @@ export class VotoCandidatoComponent implements OnInit {
         window.location.reload();
       });
     }
+    this.setVoto = true;
+
   }
 
   async sendData(data: SetVoto) {
