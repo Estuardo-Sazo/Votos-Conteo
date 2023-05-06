@@ -21,6 +21,8 @@ export class GeneralComponent {
 
   async getResults() {
     const data = await this.resultService.getResults().toPromise();
+    console.log(data);
+    
     this.votos = data ?? [];
 
     this.votos.forEach((c) => {

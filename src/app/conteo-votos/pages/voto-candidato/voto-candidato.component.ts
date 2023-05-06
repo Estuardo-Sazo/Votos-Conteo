@@ -109,9 +109,7 @@ export class VotoCandidatoComponent implements OnInit {
 
     await Promise.all(promises);
     if (this.setVoto) {
-      this.routerPath.navigate(['/registro-voto']).then(() => {
-        window.location.reload();
-      });
+      this.routerPath.navigate(['general'] );
     }
     this.setVoto = true;
 
