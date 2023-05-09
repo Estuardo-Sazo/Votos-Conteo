@@ -6,6 +6,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { VotosService } from '../../services/votos.service';
 import { SetVoto } from '../../interfaces/setVotos.interface';
 import { NgIf } from '@angular/common';
+import { DomSanitizer } from '@angular/platform-browser';
+import { MesasService } from '../../services/mesas.service';
 
 @Component({
   selector: 'app-voto-candidato',
@@ -13,6 +15,9 @@ import { NgIf } from '@angular/common';
   styleUrls: ['./voto-candidato.component.scss'],
 })
 export class VotoCandidatoComponent implements OnInit {
+  archivos: any = [];
+  previsualizacion: string = '';
+  loading: boolean = false;
   candidatos: Candidato[] = [];
   upCan: Candidato[] = [];
 
@@ -34,7 +39,9 @@ export class VotoCandidatoComponent implements OnInit {
     private candidatoService: CandidatosService,
     private router: ActivatedRoute,
     private votosSvc: VotosService,
-    private routerPath: Router
+    private routerPath: Router,
+    private sanitizer: DomSanitizer,
+    private mesaSvc: MesasService
   ) {
     this.uudiMesa = this.router.snapshot.paramMap.get('mesa')!;
   }
@@ -109,15 +116,87 @@ export class VotoCandidatoComponent implements OnInit {
 
     await Promise.all(promises);
     if (this.setVoto) {
-      this.routerPath.navigate(['general'] );
+      this.routerPath.navigate(['general']);
     }
     this.setVoto = true;
-
   }
 
   async sendData(data: SetVoto) {
     this.votosSvc.setVotos(data).subscribe((data) => {
       console.log(data);
     });
+  }
+
+  caturarFile(event: any): any {
+    const file = event.target.files[0];
+    this.extraerBase64(file).then((imagen: any) => {
+      console.log(imagen);
+      this.previsualizacion = imagen.base;
+    });
+    this.archivos.push(file);
+  }
+
+  extraerBase64 = async ($event: any) =>
+    new Promise((resolve, reject) => {
+      try {
+        const unsafeImg = window.URL.createObjectURL($event);
+        const image = this.sanitizer.bypassSecurityTrustUrl(unsafeImg);
+        const reader = new FileReader();
+        reader.readAsDataURL($event);
+        reader.onload = () => {
+          resolve({
+            base: reader.result,
+          });
+        };
+        reader.onerror = (error) => {
+          resolve({
+            base: null,
+          });
+        };
+        return null;
+      } catch (e) {
+        return null;
+      }
+    });
+
+  /**
+   * Limpiar imagen
+   */
+
+  clearImage(img=''): any {
+    this.previsualizacion = img;
+    this.archivos = [];
+  }
+
+  /**
+   * Subir archivo
+   */
+
+  subirArchivo(): any {
+    try {
+      this.loading = true;
+      const formularioDeDatos = new FormData();
+      this.archivos.forEach((archivo: any) => {
+        console.log(archivo);
+
+        formularioDeDatos.append('file', archivo, archivo.name);
+      });
+      // formularioDeDatos.append('_id', 'MY_ID_123')
+      this.mesaSvc.uploadFile(formularioDeDatos).subscribe(
+        (res) => {
+          this.loading = false;
+
+          console.log(res);
+          this.clearImage(res.secureUrl);
+        },
+        (e) => {
+          this.loading = false;
+          console.log(e);
+        }
+      );
+    } catch (e) {
+      this.loading = false;
+      console.log('ERROR', e);
+    }
   }
 }

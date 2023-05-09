@@ -9,10 +9,15 @@ import { Mesa } from '../interfaces/mesa.interface';
 })
 export class MesasService {
   private api = environment.urlapi + 'mesas/';
+  private apiFile = environment.urlapi + 'files/';
 
   constructor(private http: HttpClient) {}
 
   getMesas(): Observable<Mesa[]> {
     return this.http.get<Mesa[]>(this.api);
+  }
+
+  uploadFile(body: FormData): Observable<any> {
+    return this.http.post(this.apiFile + 'actas', body);
   }
 }
