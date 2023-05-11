@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ResultadosService } from '../../services/resultados.service';
 import { Voto } from '../../interfaces/voto.interface';
+import { ConnectionServiceService } from '../../services/connection-service.service';
 
 @Component({
   selector: 'app-general',
@@ -13,7 +14,13 @@ export class GeneralComponent {
   chart_candidatos: string[] = [];
   chart_partidos: string[] = [];
   chart_color: string[] = [];
-  constructor(private resultService: ResultadosService) {}
+
+  constructor(
+    private resultService: ResultadosService,
+    public  connectionService: ConnectionServiceService
+  ) {
+   
+  }
 
   async ngOnInit() {
     await this.getResults();
@@ -22,11 +29,10 @@ export class GeneralComponent {
   async getResults() {
     const data = await this.resultService.getResults().toPromise();
     console.log(data);
-    
+
     this.votos = data ?? [];
 
     this.votos.forEach((c) => {
-      
       this.chart_candidatos.push(c.nombre_candidato);
       this.chart_partidos.push(c.nombre_partido);
       this.chart_color.push(c.color);

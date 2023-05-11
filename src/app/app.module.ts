@@ -10,6 +10,8 @@ import { SpinnerModule } from './shared/components/spinner/spinner.module';
 import { SpinnerInterceptor } from './shared/interceptor/spinner.interceptor';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { NgApexchartsModule } from 'ng-apexcharts';
+import { ErrorInterceptor } from './shared/interceptor/error.interceptor';
+import { ToasComponent } from './shared/components/toas/toas.component';
 
 @NgModule({
   declarations: [AppComponent],
@@ -24,7 +26,7 @@ import { NgApexchartsModule } from 'ng-apexcharts';
     NgApexchartsModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: !isDevMode(),
-      registrationStrategy: 'registerWhenStable:30000'
+      registrationStrategy: 'registerWhenStable:30000',
     }),
   ],
   providers: [
@@ -33,6 +35,7 @@ import { NgApexchartsModule } from 'ng-apexcharts';
       useClass: SpinnerInterceptor,
       multi: true,
     },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
   ],
   bootstrap: [AppComponent],
 })

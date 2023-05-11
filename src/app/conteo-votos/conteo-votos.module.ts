@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { GeneralComponent } from './pages/general/general.component';
 import { MenuComponent } from './components/menu/menu.component';
@@ -14,6 +14,7 @@ import { DistritosComponent } from './pages/distritos/distritos.component';
 import { DistritoResultadosComponent } from './pages/distrito-resultados/distrito-resultados.component';
 import { ChartResultComponent } from './components/chart-result/chart-result.component';
 import { NgApexchartsModule } from 'ng-apexcharts';
+import { ToasComponent } from '../shared/components/toas/toas.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { NgApexchartsModule } from 'ng-apexcharts';
     DistritosComponent,
     DistritoResultadosComponent,
     ChartResultComponent,
+    ToasComponent,
   ],
   imports: [
     CommonModule,
@@ -34,7 +36,8 @@ import { NgApexchartsModule } from 'ng-apexcharts';
     FormsModule,
     ReactiveFormsModule,
     SpinnerModule,
-    NgApexchartsModule
+    NgApexchartsModule,
   ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class ConteoVotosModule {}
