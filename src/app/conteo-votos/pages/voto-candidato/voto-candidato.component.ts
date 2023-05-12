@@ -8,6 +8,7 @@ import { SetVoto } from '../../interfaces/setVotos.interface';
 import { NgIf } from '@angular/common';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MesasService } from '../../services/mesas.service';
+import { AuthService } from 'src/app/auth/services/auth.service';
 
 @Component({
   selector: 'app-voto-candidato',
@@ -41,12 +42,14 @@ export class VotoCandidatoComponent implements OnInit {
     private votosSvc: VotosService,
     private routerPath: Router,
     private sanitizer: DomSanitizer,
-    private mesaSvc: MesasService
+    private mesaSvc: MesasService,
+    private authService: AuthService
   ) {
     this.uudiMesa = this.router.snapshot.paramMap.get('mesa')!;
   }
 
   async ngOnInit() {
+    await this.authService.validToken();
     await this.getCandidatos();
   }
   async getCandidatos() {
@@ -163,7 +166,7 @@ export class VotoCandidatoComponent implements OnInit {
    * Limpiar imagen
    */
 
-  clearImage(img=''): any {
+  clearImage(img = ''): any {
     this.previsualizacion = img;
     this.archivos = [];
   }

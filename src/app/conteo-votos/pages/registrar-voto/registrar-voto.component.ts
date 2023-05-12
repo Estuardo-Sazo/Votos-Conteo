@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Mesa } from '../../interfaces/mesa.interface';
 import { MesasService } from '../../services/mesas.service';
 import { AuthService } from 'src/app/auth/services/auth.service';
+import { HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'app-registrar-voto',
@@ -18,10 +19,10 @@ export class RegistrarVotoComponent {
 
   async ngOnInit() {
     await this.authService.validToken();
-
     await this.getMesas();
   }
   async getMesas() {
+    
     this.mesaService.getMesas().subscribe((data) => {
       console.log(data);
       this.mesas = data;
