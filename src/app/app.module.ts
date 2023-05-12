@@ -12,6 +12,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { NgApexchartsModule } from 'ng-apexcharts';
 import { ErrorInterceptor } from './shared/interceptor/error.interceptor';
 import { ToasComponent } from './shared/components/toas/toas.component';
+import { AuthModule } from './auth/auth.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -23,6 +24,7 @@ import { ToasComponent } from './shared/components/toas/toas.component';
     FormsModule,
     ReactiveFormsModule,
     SpinnerModule,
+    AuthModule,
     NgApexchartsModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: !isDevMode(),

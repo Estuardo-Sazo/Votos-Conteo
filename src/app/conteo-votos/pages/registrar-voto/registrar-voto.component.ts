@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Mesa } from '../../interfaces/mesa.interface';
 import { MesasService } from '../../services/mesas.service';
+import { AuthService } from 'src/app/auth/services/auth.service';
 
 @Component({
   selector: 'app-registrar-voto',
@@ -10,9 +11,14 @@ import { MesasService } from '../../services/mesas.service';
 export class RegistrarVotoComponent {
   mesas: Mesa[] = [];
 
-  constructor(private mesaService: MesasService) {}
+  constructor(
+    private mesaService: MesasService,
+    private authService: AuthService
+  ) {}
 
   async ngOnInit() {
+    await this.authService.validToken();
+
     await this.getMesas();
   }
   async getMesas() {

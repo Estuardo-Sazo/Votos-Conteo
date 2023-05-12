@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ResultadosService } from '../../services/resultados.service';
 import { Voto } from '../../interfaces/voto.interface';
 import { ConnectionServiceService } from '../../services/connection-service.service';
+import { AuthService } from 'src/app/auth/services/auth.service';
 
 @Component({
   selector: 'app-general',
@@ -17,7 +18,8 @@ export class GeneralComponent {
 
   constructor(
     private resultService: ResultadosService,
-    public  connectionService: ConnectionServiceService
+    public  connectionService: ConnectionServiceService,
+    
   ) {
    
   }
