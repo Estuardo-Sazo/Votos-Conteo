@@ -9,6 +9,7 @@ import { NgIf } from '@angular/common';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MesasService } from '../../services/mesas.service';
 import { AuthService } from 'src/app/auth/services/auth.service';
+import { SocketIoService } from '../../services/socket-io.service';
 
 @Component({
   selector: 'app-voto-candidato',
@@ -43,7 +44,8 @@ export class VotoCandidatoComponent implements OnInit {
     private routerPath: Router,
     private sanitizer: DomSanitizer,
     private mesaSvc: MesasService,
-    private authService: AuthService
+    private authService: AuthService,
+    private socketScv: SocketIoService
   ) {
     this.uudiMesa = this.router.snapshot.paramMap.get('mesa')!;
   }
@@ -118,15 +120,19 @@ export class VotoCandidatoComponent implements OnInit {
     }
 
     await Promise.all(promises);
+
     if (this.setVoto) {
+
       this.routerPath.navigate(['general']);
     }
     this.setVoto = true;
   }
 
   async sendData(data: SetVoto) {
-    this.votosSvc.setVotos(data).subscribe((data) => {
+    this.votosSvc.setVotos(data).subscribe(async (data) => {
       console.log(data);
+      await this.socketScv.sendVotos('Votos Enviados');
+
     });
   }
 

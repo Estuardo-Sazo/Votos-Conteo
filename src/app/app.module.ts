@@ -13,6 +13,11 @@ import { NgApexchartsModule } from 'ng-apexcharts';
 import { ErrorInterceptor } from './shared/interceptor/error.interceptor';
 import { ToasComponent } from './shared/components/toas/toas.component';
 import { AuthModule } from './auth/auth.module';
+import { SocketIoConfig, SocketIoModule } from 'ngx-socket-io';
+import { environment } from 'src/environments/environments';
+const api = environment.urlapi;
+
+const config: SocketIoConfig = { url: api, options: {} };
 
 @NgModule({
   declarations: [AppComponent],
@@ -30,7 +35,7 @@ import { AuthModule } from './auth/auth.module';
       enabled: !isDevMode(),
       registrationStrategy: 'registerWhenStable:30000',
     }),
-  ],
+    SocketIoModule.forRoot(config),],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,

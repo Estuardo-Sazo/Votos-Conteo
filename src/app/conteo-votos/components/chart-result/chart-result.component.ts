@@ -9,6 +9,7 @@ import {
   ApexLegend,
   ApexGrid,
 } from 'ng-apexcharts';
+import { SocketIoService } from '../../services/socket-io.service';
 
 type ApexXAxis = {
   type?: 'category' | 'datetime' | 'numeric';
@@ -46,10 +47,33 @@ export class ChartResultComponent {
   @Input() chart_color: string[] = [];
 
   chartOptions!: Partial<ChartOptions> | any;
-  constructor() {}
+  constructor(private socketScv: SocketIoService) {}
   async ngOnInit() {
-   
+    await this.setData();
+    this.socketScv.getResults$().subscribe(async ({ message, data }) => {
+      const promises: any = [];
+      this.clearDataBar();
+      data.forEach((c:any) => {
+        this.chart_candidatos.push(c.nombre_candidato);
+        this.chart_partidos.push(c.nombre_partido);
+        this.chart_color.push(c.color);
+        this.chart_votos.push(c.total_votos);
+        promises.push(true);
+        
+      });
+      await Promise.all(promises);
+      await this.setData();
+    });
 
+    
+  }
+  clearDataBar(){
+    this.chart_votos=[];
+    this.chart_candidatos=[];
+    this.chart_partidos=[];
+    this.chart_color=[];
+  }
+  async setData(){
     this.chartOptions = {
       /* Votos */
       series: [

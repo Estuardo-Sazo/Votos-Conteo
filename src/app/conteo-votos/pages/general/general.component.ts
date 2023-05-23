@@ -2,7 +2,9 @@ import { Component } from '@angular/core';
 import { ResultadosService } from '../../services/resultados.service';
 import { Voto } from '../../interfaces/voto.interface';
 import { ConnectionServiceService } from '../../services/connection-service.service';
-import { AuthService } from 'src/app/auth/services/auth.service';
+import { io } from 'socket.io-client';
+import { environment } from 'src/environments/environments';
+import { SocketIoService } from '../../services/socket-io.service';
 
 @Component({
   selector: 'app-general',
@@ -10,6 +12,8 @@ import { AuthService } from 'src/app/auth/services/auth.service';
   styleUrls: ['./general.component.scss'],
 })
 export class GeneralComponent {
+  private api = environment.urlapi;
+  votingResults: any;
   votos: Voto[] = [];
   chart_votos: number[] = [];
   chart_candidatos: string[] = [];
@@ -18,20 +22,28 @@ export class GeneralComponent {
 
   constructor(
     private resultService: ResultadosService,
-    public  connectionService: ConnectionServiceService,
-    
-  ) {
-   
-  }
+    public connectionService: ConnectionServiceService,
+    private socketScv: SocketIoService
+  ) {}
 
   async ngOnInit() {
     await this.getResults();
+    this.socketScv.getResults$().subscribe(({ message, data }) => {
+      console.log(message);
+
+      console.log(data);
+      this.setData(data);
+    });
   }
 
   async getResults() {
     const data = await this.resultService.getResults().toPromise();
     console.log(data);
-
+    await this.setData(data);
+  }
+  async setData(data: any) {
+    console.log('New Data:', data);
+    
     this.votos = data ?? [];
 
     this.votos.forEach((c) => {
