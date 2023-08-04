@@ -48,4 +48,10 @@ export class AuthService {
   async cargarTokenStorage() {
     this.token = this.localStorage.get('token');
   }
+  
+  logOut(){
+    this.localStorage.delete('token');
+    this.router.navigate(['/login']);
+
+  }  
 }

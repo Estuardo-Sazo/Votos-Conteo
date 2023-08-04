@@ -28,4 +28,8 @@ export class RegistrarVotoComponent {
       this.mesas = data;
     });
   }
+
+  logOut(){
+    this.authService.logOut();
+  }
 }
